@@ -1,3 +1,5 @@
+import R from 'ramda';
+
 function checkPlainObject(value) {
     return (
         value !== null &&
@@ -6,19 +8,25 @@ function checkPlainObject(value) {
     );
 }
 
+function getHighestArity(specification) {
+    const highestArity = Object.values(specification).reduce(
+        (currentHighestArity, value) => {
+            if (typeof value === 'function') {
+                return Math.max(currentHighestArity, value.length);
+            } else {
+                return currentHighestArity;
+            }
+        },
+        0
+    );
+
+    return highestArity;
+}
+
 function applySpec(specification) {
-    let highestArity = 0;
+    const highestArity = getHighestArity(specification) ?? 0;
 
-    if (checkPlainObject(specification)) {
-        highestArity = Object.entries(specification).reduce(
-            (accumulator, [key, value]) => {
-                return Math.max(accumulator, value.length);
-            },
-            0
-        );
-    }
-
-    function partiallyAppliedFunction(...args) {
+    function specificationFactory(...args) {
         let results = {};
 
         if (Array.isArray(specification)) {
@@ -48,11 +56,11 @@ function applySpec(specification) {
         return results;
     }
 
-    Object.defineProperty(partiallyAppliedFunction, 'length', {
+    Object.defineProperty(specificationFactory, 'length', {
         value: highestArity
     });
 
-    return partiallyAppliedFunction;
+    return R.curryN(highestArity, specificationFactory);
 }
 
 export default applySpec;
