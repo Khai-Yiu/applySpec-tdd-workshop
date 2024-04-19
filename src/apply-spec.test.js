@@ -47,8 +47,7 @@ describe('applySpec', () => {
             ]
         );
     });
-
-    it.skip('works with a spec defining a map key', function () {
-        eq(R.applySpec({ map: R.prop('a') })({ a: 1 }), { map: 1 });
+    it('works with a spec defining a map key', function () {
+        eq(applySpec({ map: R.prop('a') })({ a: 1 }), { map: 1 });
     });
 });
