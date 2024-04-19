@@ -54,4 +54,7 @@ describe('applySpec', () => {
         const f = applySpec({ f1: R.nAry(2, R.T), f2: R.nAry(5, R.T) });
         eq(f.length, 5);
     });
+    it('returns a curried function', function () {
+        eq(applySpec({ sum: R.add })(1)(2), { sum: 3 });
+    });
 });
