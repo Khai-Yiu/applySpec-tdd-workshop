@@ -1,8 +1,8 @@
-function applySpec(functor) {
+function applySpec(specification) {
     return function (...args) {
         const newObject = {};
 
-        for (const [key, value] of Object.entries(functor)) {
+        for (const [key, value] of Object.entries(specification)) {
             newObject[key] = value(...args);
         }
 

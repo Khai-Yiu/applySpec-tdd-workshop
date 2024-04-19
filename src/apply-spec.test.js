@@ -12,7 +12,7 @@ describe('applySpec,', () => {
     it('works with unary functions', function () {
         eq(applySpec({ v: R.inc, u: R.dec })(1), { v: 2, u: 0 });
     });
-    it.skip('works with binary functions', function () {
+    it('works with binary functions', function () {
         eq(applySpec({ sum: R.add })(1, 2), { sum: 3 });
     });
     it.skip('works with nested specs', function () {
