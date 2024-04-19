@@ -9,26 +9,30 @@ function checkPlainObject(value) {
 function applySpec(specification) {
     return function (...args) {
         if (Array.isArray(specification)) {
-            return specification.map((currentSpec) => {
-                return applySpec(currentSpec)(...args);
+            return specification.map((value) => {
+                if (typeof value === 'function') {
+                    return value(...args);
+                } else if (checkPlainObject(value)) {
+                    return applySpec(value)(...args);
+                }
             });
         }
 
-        const appliedSpec = {};
+        const results = {};
 
         for (const [key, value] of Object.entries(specification)) {
             if (typeof value === 'function') {
-                appliedSpec[key] = value(...args);
+                results[key] = value(...args);
             } else if (checkPlainObject(value)) {
-                appliedSpec[key] = applySpec(value)(...args);
+                results[key] = applySpec(value)(...args);
             } else if (Array.isArray(value)) {
-                appliedSpec[key] = value.map((currentSpec) => {
+                results[key] = value.map((currentSpec) => {
                     return applySpec(currentSpec)(...args);
                 });
             }
         }
 
-        return appliedSpec;
+        return results;
     };
 }
 
