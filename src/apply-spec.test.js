@@ -1,4 +1,4 @@
-import applySpec from './apply-test';
+import applySpec from './apply-spec';
 import R from 'ramda';
 
 describe('applySpec', () => {
@@ -32,7 +32,7 @@ describe('applySpec', () => {
     });
 
     it('works with arrays of spec objects', function () {
-        eq(R.applySpec([{ sum: R.add }])(1, 2), [{ sum: 3 }]);
+        eq(applySpec([{ sum: R.add }])(1, 2), [{ sum: 3 }]);
     });
 
     it.skip('works with arrays of functions', function () {
