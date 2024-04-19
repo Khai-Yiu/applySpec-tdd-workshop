@@ -15,6 +15,14 @@ function applySpec(specification) {
                 appliedSpec[key] = value(...args);
             } else if (checkPlainObject(value)) {
                 appliedSpec[key] = applySpec(value)(...args);
+            } else if (Array.isArray(value)) {
+                const arrayOfAppliedSpecs = [];
+
+                for (const currentSpec of value) {
+                    arrayOfAppliedSpecs.push(applySpec(currentSpec)(...args));
+                }
+
+                appliedSpec[key] = arrayOfAppliedSpecs;
             }
         }
 
