@@ -21,7 +21,7 @@ describe('applySpec', () => {
             nested: { sum: 3 }
         });
     });
-    it('works with arrays of nested specs,', function () {
+    it('works with arrays of nested specs', function () {
         eq(
             applySpec({ unnested: R.always(0), nested: [{ sum: R.add }] })(
                 1,
@@ -31,7 +31,7 @@ describe('applySpec', () => {
         );
     });
 
-    it.skip('works with arrays of spec objects', function () {
+    it('works with arrays of spec objects', function () {
         eq(R.applySpec([{ sum: R.add }])(1, 2), [{ sum: 3 }]);
     });
 
