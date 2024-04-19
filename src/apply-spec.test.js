@@ -1,7 +1,7 @@
 import applySpec from './apply-test';
 import R from 'ramda';
 
-describe('applySpec,', () => {
+describe('applySpec', () => {
     function eq(expected, result) {
         expect(expected).toEqual(result);
     }
@@ -15,7 +15,7 @@ describe('applySpec,', () => {
     it('works with binary functions', function () {
         eq(applySpec({ sum: R.add })(1, 2), { sum: 3 });
     });
-    it.skip('works with nested specs', function () {
+    it('works with nested specs', function () {
         eq(applySpec({ unnested: R.always(0), nested: { sum: R.add } })(1, 2), {
             unnested: 0,
             nested: { sum: 3 }
