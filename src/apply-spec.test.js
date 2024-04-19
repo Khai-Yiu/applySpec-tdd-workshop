@@ -35,9 +35,9 @@ describe('applySpec', () => {
         eq(applySpec([{ sum: R.add }])(1, 2), [{ sum: 3 }]);
     });
 
-    it.skip('works with arrays of functions', function () {
+    it('works with arrays of functions', function () {
         eq(
-            R.applySpec([R.map(R.prop('a')), R.map(R.prop('b'))])([
+            applySpec([R.map(R.prop('a')), R.map(R.prop('b'))])([
                 { a: 'a1', b: 'b1' },
                 { a: 'a2', b: 'b2' }
             ]),
