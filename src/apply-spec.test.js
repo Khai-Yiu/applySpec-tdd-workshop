@@ -9,7 +9,7 @@ describe('applySpec,', () => {
     it('works with empty spec', function () {
         eq(applySpec({})(), {});
     });
-    it.skip('works with unary functions', function () {
+    it('works with unary functions', function () {
         eq(applySpec({ v: R.inc, u: R.dec })(1), { v: 2, u: 0 });
     });
     it.skip('works with binary functions', function () {
